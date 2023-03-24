@@ -59,6 +59,7 @@ In this project use 3 layer architecture
 - Config using .env
 - Linter
 - Jaeger
+- Production docker file version
 
 ## Acknowledgements
 
