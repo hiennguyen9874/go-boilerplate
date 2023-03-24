@@ -14,7 +14,6 @@ import (
 	"github.com/hiennguyen9874/go-boilerplate/internal/users"
 	"github.com/hiennguyen9874/go-boilerplate/internal/users/presenter"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/httpErrors"
-	"github.com/hiennguyen9874/go-boilerplate/pkg/jwt"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/logger"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/responses"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/utils"
@@ -30,6 +29,19 @@ func CreateUserHandler(uc users.UserUseCaseI, cfg *config.Config, logger logger.
 	return &userHandler{cfg: cfg, usersUC: uc, logger: logger}
 }
 
+// Create godoc
+// @Summary Create User
+// @Description Create new user.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body presenter.UserCreate true "Add user"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user [post]
 func (h *userHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		user := new(presenter.UserCreate)
@@ -62,6 +74,21 @@ func (h *userHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Get godoc
+// @Summary Read user
+// @Description Get user by ID.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User Id"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/{id} [get]
 func (h *userHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
@@ -80,6 +107,20 @@ func (h *userHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetMulti godoc
+// @Summary Read Users
+// @Description Retrieve users.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param limit query int false "limit" Format(limit)
+// @Param offset query int false "offset" Format(offset)
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user [get]
 func (h *userHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query()
@@ -97,6 +138,21 @@ func (h *userHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Delete godoc
+// @Summary Delete user
+// @Description Delete an user by ID.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User Id"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/{id} [delete]
 func (h *userHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
@@ -115,6 +171,22 @@ func (h *userHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Update godoc
+// @Summary Update user
+// @Description Update an user by ID.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User Id"
+// @Param user body presenter.UserUpdate true "Update user"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/{id} [put]
 func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
@@ -152,6 +224,22 @@ func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// UpdatePassword godoc
+// @Summary Update password user
+// @Description Update password user by ID.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User Id"
+// @Param user body presenter.UserUpdatePassword true "Update user"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/{id}/updatepass [patch]
 func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
@@ -190,38 +278,20 @@ func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-func (h *userHandler) SignIn() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		user := new(presenter.UserSignIn)
-
-		r.ParseMultipartForm(0)
-		user.Email = r.FormValue("email")
-		user.Password = r.FormValue("password")
-
-		err := utils.ValidateStruct(r.Context(), user)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
-			return
-		}
-
-		accessToken, refreshToken, err := h.usersUC.SignIn(
-			r.Context(),
-			user.Email,
-			user.Password,
-		)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		render.Respond(w, r, presenter.Token{
-			AccessToken:  accessToken,
-			RefreshToken: refreshToken,
-			TokenType:    "bearer",
-		})
-	}
-}
-
+// Me godoc
+// @Summary Read user me
+// @Description Get user me.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/me [get]
 func (h *userHandler) Me() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -236,6 +306,21 @@ func (h *userHandler) Me() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// UpdateMe godoc
+// @Summary Update user me
+// @Description Update user me.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body presenter.UserUpdate true "Update user"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/me [put]
 func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -275,6 +360,21 @@ func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// UpdatePasswordMe godoc
+// @Summary Update password user me
+// @Description Update password user me.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param user body presenter.UserUpdatePassword true "Update user"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/me/updatepass [patch]
 func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -315,98 +415,21 @@ func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Req
 	}
 }
 
-func (h *userHandler) RefreshToken() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		refreshToken := middleware.TokenFromHeader(r)
-
-		accessToken, refreshToken, err := h.usersUC.Refresh(ctx, refreshToken)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		render.Respond(w, r, presenter.Token{
-			AccessToken:  accessToken,
-			RefreshToken: refreshToken,
-			TokenType:    "bearer",
-		})
-	}
-}
-
-func (h *userHandler) GetPublicKey() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		publicKeyAccessToken, err := jwt.DecodeBase64(h.cfg.Jwt.JwtAccessTokenPublicKey)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		publicKeyRefreshToken, err := jwt.DecodeBase64(h.cfg.Jwt.JwtRefreshTokenPublicKey)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		render.Respond(w, r, presenter.PublicKey{
-			PublicKeyAccessToken:  string(publicKeyAccessToken[:]),
-			PublicKeyRefreshToken: string(publicKeyRefreshToken[:]),
-		})
-	}
-}
-
-func (h *userHandler) Logout() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		refreshToken := middleware.TokenFromHeader(r)
-
-		err := h.usersUC.Logout(ctx, refreshToken)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-	}
-}
-
-func (h *userHandler) LogoutAllToken() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		refreshToken := middleware.TokenFromHeader(r)
-
-		id, err := h.usersUC.ParseIdFromRefreshToken(ctx, refreshToken)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		err = h.usersUC.LogoutAll(ctx, id)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-	}
-}
-
-func (h *userHandler) VerifyEmail() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		q := r.URL.Query()
-		verificationCode := q.Get("code")
-
-		err := h.usersUC.Verify(ctx, verificationCode)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		render.Respond(w, r, responses.CreateSuccessResponse("Email verified successfully"))
-	}
-}
-
+// LogoutAllAdmin godoc
+// @Summary Logout all of user
+// @Description Logout all session of user with id.
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param id path string true "User Id"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /user/{id}/logoutall [get]
 func (h *userHandler) LogoutAllAdmin() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -422,72 +445,6 @@ func (h *userHandler) LogoutAllAdmin() func(w http.ResponseWriter, r *http.Reque
 			render.Render(w, r, responses.CreateErrorResponse(err))
 			return
 		}
-	}
-}
-
-func (h *userHandler) ForgotPassword() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		forgotPassword := new(presenter.ForgotPassword)
-
-		err := json.NewDecoder(r.Body).Decode(&forgotPassword)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		err = utils.ValidateStruct(r.Context(), forgotPassword)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
-			return
-		}
-
-		err = h.usersUC.ForgotPassword(ctx, forgotPassword.Email)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		render.Respond(w, r,
-			responses.CreateSuccessResponse("You will receive a reset email if user with that email exist"))
-	}
-}
-
-func (h *userHandler) ResetPassword() func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ctx := r.Context()
-
-		q := r.URL.Query()
-		resetToken := q.Get("code")
-
-		resetPassword := new(presenter.ResetPassword)
-
-		err := json.NewDecoder(r.Body).Decode(&resetPassword)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		err = utils.ValidateStruct(r.Context(), resetPassword)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
-			return
-		}
-
-		err = h.usersUC.ResetPassword(
-			ctx,
-			resetToken,
-			resetPassword.NewPassword,
-			resetPassword.ConfirmPassword,
-		)
-		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
-			return
-		}
-
-		render.Respond(w, r,
-			responses.CreateSuccessResponse("Password data updated successfully, please re-login"))
 	}
 }
 

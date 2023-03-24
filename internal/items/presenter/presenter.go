@@ -5,8 +5,8 @@ import (
 )
 
 type ItemCreate struct {
-	Title       string `json:"title" validate:"required"`
-	Description string `json:"description" validate:"required"`
+	Title       string `json:"title" validate:"required" example:"item title"`
+	Description string `json:"description" validate:"required" example:"item description"`
 }
 
 type ItemResponse struct {
@@ -17,6 +17,6 @@ type ItemResponse struct {
 }
 
 type ItemUpdate struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	Title       string `json:"title" example:"item title"`
+	Description string `json:"description" example:"item description"`
 }

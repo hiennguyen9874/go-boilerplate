@@ -50,16 +50,15 @@ In this project use 3 layer architecture
 ### Run
 
 - `docker-compose up`
+- Swagger: [localhost:5000/swagger/](http://localhost:5000/swagger/)
 
 ## TODO
 
-- Swagger
 - Traefik
 - Worker like python celery
 - Config using .env
 - Linter
 - Jaeger
-- Items
 
 ## Acknowledgements
 

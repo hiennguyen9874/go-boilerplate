@@ -7,20 +7,20 @@ import (
 )
 
 type UserCreate struct {
-	Name            string `json:"name" validate:"required"`
-	Email           string `json:"email" validate:"required"`
-	Password        string `json:"password" validate:"required,min=8"`
-	ConfirmPassword string `json:"confirm_password" validate:"required,min=8"`
+	Name            string `json:"name" validate:"required" example:"Xuan Hien"`
+	Email           string `json:"email" validate:"required" example:"hiennguyen9874@gmail.com"`
+	Password        string `json:"password" validate:"required,min=8" example:"password"`
+	ConfirmPassword string `json:"confirm_password" validate:"required,min=8" example:"password"`
 }
 
 type UserUpdate struct {
-	Name string `json:"name"`
+	Name string `json:"name" example:"Xuan Hien"`
 }
 
 type UserUpdatePassword struct {
-	OldPassword     string `json:"old_password" validate:"required,min=8"`
-	NewPassword     string `json:"new_password" validate:"required,min=8"`
-	ConfirmPassword string `json:"confirm_password" validate:"required,min=8"`
+	OldPassword     string `json:"old_password" validate:"required,min=8" example:"old_password"`
+	NewPassword     string `json:"new_password" validate:"required,min=8" example:"password"`
+	ConfirmPassword string `json:"confirm_password" validate:"required,min=8" example:"password"`
 }
 
 type UserResponse struct {
@@ -35,8 +35,8 @@ type UserResponse struct {
 }
 
 type UserSignIn struct {
-	Email    string `json:"email" validate:"required"`
-	Password string `json:"password" validate:"required,min=8"`
+	Email    string `json:"email" validate:"required" example:"hiennguyen9874@gmail.com"`
+	Password string `json:"password" validate:"required,min=8" example:"password"`
 }
 
 type Token struct {
@@ -51,10 +51,10 @@ type PublicKey struct {
 }
 
 type ForgotPassword struct {
-	Email string `json:"email" validate:"required"`
+	Email string `json:"email" validate:"required" example:"hiennguyen9874@gmail.com"`
 }
 
 type ResetPassword struct {
-	NewPassword     string `json:"new_password" validate:"required,min=8"`
-	ConfirmPassword string `json:"confirm_password" validate:"required,min=8"`
+	NewPassword     string `json:"new_password" validate:"required,min=8" example:"password"`
+	ConfirmPassword string `json:"confirm_password" validate:"required,min=8" example:"password"`
 }

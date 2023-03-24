@@ -29,6 +29,19 @@ func CreateItemHandler(uc items.ItemUseCaseI, cfg *config.Config, logger logger.
 	return &itemHandler{cfg: cfg, itemsUC: uc, logger: logger}
 }
 
+// Create godoc
+// @Summary Create Item
+// @Description Create new item.
+// @Tags items
+// @Accept json
+// @Produce json
+// @Param item body presenter.ItemCreate true "Add item"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /item [post]
 func (h *itemHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -68,6 +81,21 @@ func (h *itemHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Get godoc
+// @Summary Read item
+// @Description Get item by ID.
+// @Tags items
+// @Accept json
+// @Produce json
+// @Param id path string true "Item Id"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /item/{id} [get]
 func (h *itemHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -99,6 +127,20 @@ func (h *itemHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetMulti godoc
+// @Summary Read Items
+// @Description Retrieve items.
+// @Tags items
+// @Accept json
+// @Produce json
+// @Param limit query int false "limit" Format(limit)
+// @Param offset query int false "offset" Format(offset)
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /item [get]
 func (h *itemHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		q := r.URL.Query()
@@ -128,6 +170,21 @@ func (h *itemHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Delete godoc
+// @Summary Delete item
+// @Description Delete an item by ID.
+// @Tags items
+// @Accept json
+// @Produce json
+// @Param id path string true "Item Id"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /item/{id} [delete]
 func (h *itemHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
@@ -165,6 +222,22 @@ func (h *itemHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// Update godoc
+// @Summary Update item
+// @Description Update an item by ID.
+// @Tags items
+// @Accept json
+// @Produce json
+// @Param id path string true "Item Id"
+// @Param item body presenter.ItemUpdate true "Update item"
+// @Success 200 {object} responses.Response
+// @Failure 400	{object} responses.Response
+// @Failure 401	{object} responses.Response
+// @Failure 403	{object} responses.Response
+// @Failure 404	{object} responses.Response
+// @Failure 422	{object} responses.Response
+// @Security OAuth2Password
+// @Router /item/{id} [put]
 func (h *itemHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
