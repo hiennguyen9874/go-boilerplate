@@ -12,6 +12,9 @@ import (
 	"gorm.io/gorm"
 
 	"github.com/hiennguyen9874/go-boilerplate/config"
+	itemHttp "github.com/hiennguyen9874/go-boilerplate/internal/items/delivery/http"
+	itemRepository "github.com/hiennguyen9874/go-boilerplate/internal/items/repository"
+	itemUseCase "github.com/hiennguyen9874/go-boilerplate/internal/items/usecase"
 	apiMiddleware "github.com/hiennguyen9874/go-boilerplate/internal/middleware"
 	userHttp "github.com/hiennguyen9874/go-boilerplate/internal/users/delivery/http"
 	userRepository "github.com/hiennguyen9874/go-boilerplate/internal/users/repository"
@@ -25,12 +28,15 @@ func New(db *gorm.DB, redisClient *redis.Client, cfg *config.Config, logger logg
 	// Repository
 	userPgRepo := userRepository.CreateUserPgRepository(db)
 	userRedisRepo := userRepository.CreateUserRedisRepository(redisClient)
+	itemPgRepo := itemRepository.CreateItemPgRepository(db)
 
 	// UseCase
 	userUC := userUseCase.CreateUserUseCaseI(userPgRepo, userRedisRepo, cfg, logger)
+	itemUC := itemUseCase.CreateItemUseCaseI(itemPgRepo, cfg, logger)
 
 	// Handler
 	userHandler := userHttp.CreateUserHandler(userUC, cfg, logger)
+	itemHandler := itemHttp.CreateItemHandler(itemUC, cfg, logger)
 
 	// middleware
 	mw := apiMiddleware.CreateMiddlewareManager(cfg, logger, userUC)
@@ -44,11 +50,15 @@ func New(db *gorm.DB, redisClient *redis.Client, cfg *config.Config, logger logg
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 	r.Use(cors.Handler(mw.Cors()))
 
-	r.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
+	apiRouter := chi.NewRouter()
+	r.Mount("/api", apiRouter)
+
+	apiRouter.Get("/ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("pong"))
 	})
 
-	userHttp.MapUserRoute(r, userHandler, mw)
+	userHttp.MapUserRoute(apiRouter, userHandler, mw)
+	itemHttp.MapItemRoute(apiRouter, itemHandler, mw)
 
 	return r, nil
 }
