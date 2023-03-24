@@ -21,11 +21,6 @@ type User struct {
 	PasswordResetAt    *time.Time `gorm:"default:null"`
 }
 
-type Tabler interface {
-	TableName() string
-}
-
-// TableName overrides the table name used by User to `profiles`
 func (User) TableName() string {
 	return "user"
 }
