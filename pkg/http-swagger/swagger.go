@@ -4,7 +4,6 @@ import (
 	"embed"
 	"html/template"
 	"io/fs"
-	"log"
 	"net/http"
 	"path/filepath"
 	"regexp"
@@ -187,7 +186,6 @@ func Handler(configFns ...func(*Config)) http.HandlerFunc {
 		case "index.html":
 			_ = index.Execute(w, config)
 		case "doc.json":
-			log.Printf("Reading doc")
 			doc, err := swag.ReadDoc(config.InstanceName)
 			if err != nil {
 				http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

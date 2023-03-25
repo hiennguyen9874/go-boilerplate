@@ -61,9 +61,9 @@ func (mw *MiddlewareManager) Verifier(requireAccessToken bool) func(http.Handler
 			} else {
 				var publicKey string
 				if requireAccessToken {
-					publicKey = mw.cfg.Jwt.JwtAccessTokenPublicKey
+					publicKey = mw.cfg.Jwt.AccessTokenPublicKey
 				} else {
-					publicKey = mw.cfg.Jwt.JwtRefreshTokenPublicKey
+					publicKey = mw.cfg.Jwt.RefreshTokenPublicKey
 				}
 				id, email, err := jwt.ParseTokenRS256(token, publicKey)
 				ctx = context.WithValue(ctx, TokenCtxKey, token)

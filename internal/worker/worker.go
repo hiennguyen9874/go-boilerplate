@@ -26,8 +26,8 @@ type TaskProcessor struct {
 
 func NewTaskProcessor(cfg *config.Config, logger logger.Logger) (*TaskProcessor, error) {
 	redisOpt := asynq.RedisClientOpt{
-		Addr: cfg.TaskRedis.TaskRedisAddr,
-		DB:   cfg.TaskRedis.TaskRedisDb,
+		Addr: cfg.TaskRedis.Addr,
+		DB:   cfg.TaskRedis.Db,
 	}
 
 	server := asynq.NewServer(

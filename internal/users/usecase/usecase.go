@@ -150,9 +150,9 @@ func (u *userUseCase) Create(ctx context.Context, exp *models.User) (*models.Use
 	}
 
 	err = u.redisTaskDistributor.DistributeTaskSendEmail(ctx, &users.PayloadSendEmail{
-		From:      u.Cfg.Email.EmailFrom,
+		From:      u.Cfg.Email.From,
 		To:        updatedUser.Email,
-		Subject:   u.Cfg.Email.EmailVerificationSubject,
+		Subject:   u.Cfg.Email.VerificationSubject,
 		BodyHtml:  bodyHtml,
 		BodyPlain: bodyPlain,
 	}, []asynq.Option{
@@ -178,9 +178,9 @@ func (u *userUseCase) createToken(ctx context.Context, exp models.User) (string,
 	accessToken, err := jwt.CreateAccessTokenRS256(
 		exp.Id.String(),
 		exp.Email,
-		u.Cfg.Jwt.JwtAccessTokenPrivateKey,
-		u.Cfg.Jwt.JwtAccessTokenExpireDuration*int64(time.Minute),
-		u.Cfg.Jwt.JwtIssuer,
+		u.Cfg.Jwt.AccessTokenPrivateKey,
+		u.Cfg.Jwt.AccessTokenExpireDuration*int64(time.Minute),
+		u.Cfg.Jwt.Issuer,
 	)
 	if err != nil {
 		return "", "", err
@@ -189,9 +189,9 @@ func (u *userUseCase) createToken(ctx context.Context, exp models.User) (string,
 	refreshToken, err := jwt.CreateAccessTokenRS256(
 		exp.Id.String(),
 		exp.Email,
-		u.Cfg.Jwt.JwtRefreshTokenPrivateKey,
-		u.Cfg.Jwt.JwtRefreshTokenExpireDuration*int64(time.Minute),
-		u.Cfg.Jwt.JwtIssuer,
+		u.Cfg.Jwt.RefreshTokenPrivateKey,
+		u.Cfg.Jwt.RefreshTokenExpireDuration*int64(time.Minute),
+		u.Cfg.Jwt.Issuer,
 	)
 	if err != nil {
 		return "", "", err
@@ -235,13 +235,13 @@ func (u *userUseCase) IsSuper(ctx context.Context, exp models.User) bool {
 }
 
 func (u *userUseCase) CreateSuperUserIfNotExist(ctx context.Context) (bool, error) {
-	user, err := u.pgRepo.GetByEmail(ctx, u.Cfg.FirstSuperUser.FirstSuperUserEmail)
+	user, err := u.pgRepo.GetByEmail(ctx, u.Cfg.FirstSuperUser.Email)
 
 	if err != nil || user == nil {
 		_, err := u.Create(ctx, &models.User{
-			Name:        u.Cfg.FirstSuperUser.FirstSuperUserName,
-			Email:       u.Cfg.FirstSuperUser.FirstSuperUserEmail,
-			Password:    u.Cfg.FirstSuperUser.FirstSuperUserPassword,
+			Name:        u.Cfg.FirstSuperUser.Name,
+			Email:       u.Cfg.FirstSuperUser.Email,
+			Password:    u.Cfg.FirstSuperUser.Password,
 			IsActive:    true,
 			IsSuperUser: true,
 			Verified:    true,
@@ -299,7 +299,7 @@ func (u *userUseCase) ParseIdFromRefreshToken(
 	ctx context.Context,
 	refreshToken string,
 ) (uuid.UUID, error) {
-	id, _, err := jwt.ParseTokenRS256(refreshToken, u.Cfg.Jwt.JwtRefreshTokenPublicKey)
+	id, _, err := jwt.ParseTokenRS256(refreshToken, u.Cfg.Jwt.RefreshTokenPublicKey)
 	if err != nil {
 		return uuid.UUID{}, err
 	}
@@ -448,9 +448,9 @@ func (u *userUseCase) ForgotPassword(ctx context.Context, email string) error {
 	}
 
 	err = u.redisTaskDistributor.DistributeTaskSendEmail(ctx, &users.PayloadSendEmail{
-		From:      u.Cfg.Email.EmailFrom,
+		From:      u.Cfg.Email.From,
 		To:        updatedUser.Email,
-		Subject:   u.Cfg.Email.EmailResetSubject,
+		Subject:   u.Cfg.Email.ResetSubject,
 		BodyHtml:  bodyHtml,
 		BodyPlain: bodyPlain,
 	}, []asynq.Option{

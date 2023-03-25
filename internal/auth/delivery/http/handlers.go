@@ -114,13 +114,13 @@ func (h *authHandler) RefreshToken() func(w http.ResponseWriter, r *http.Request
 // @Router /auth/publickey [get]
 func (h *authHandler) GetPublicKey() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		publicKeyAccessToken, err := jwt.DecodeBase64(h.cfg.Jwt.JwtAccessTokenPublicKey)
+		publicKeyAccessToken, err := jwt.DecodeBase64(h.cfg.Jwt.AccessTokenPublicKey)
 		if err != nil {
 			render.Render(w, r, responses.CreateErrorResponse(err))
 			return
 		}
 
-		publicKeyRefreshToken, err := jwt.DecodeBase64(h.cfg.Jwt.JwtRefreshTokenPublicKey)
+		publicKeyRefreshToken, err := jwt.DecodeBase64(h.cfg.Jwt.RefreshTokenPublicKey)
 		if err != nil {
 			render.Render(w, r, responses.CreateErrorResponse(err))
 			return

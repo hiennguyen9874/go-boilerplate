@@ -12,7 +12,7 @@ func (etg *emailTemplatesGenerator) GeneratePasswordResetTemplate(ctx context.Co
 		Body: hermes.Body{
 			Name: name,
 			Intros: []string{
-				fmt.Sprintf("You have received this email because a password reset request for %s account was received.", etg.cfg.Email.EmailName),
+				fmt.Sprintf("You have received this email because a password reset request for %s account was received.", etg.cfg.Email.Name),
 			},
 			Actions: []hermes.Action{
 				{

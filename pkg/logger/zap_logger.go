@@ -45,7 +45,7 @@ var loggerLevelMap = map[string]zapcore.Level{
 }
 
 func (l *apiLogger) getLoggerLevel(cfg *config.Config) zapcore.Level {
-	level, exist := loggerLevelMap[cfg.Logger.LoggerLevel]
+	level, exist := loggerLevelMap[cfg.Logger.Level]
 	if !exist {
 		return zapcore.DebugLevel
 	}
@@ -72,7 +72,7 @@ func (l *apiLogger) InitLogger() {
 	encoderCfg.NameKey = "NAME"
 	encoderCfg.MessageKey = "MESSAGE"
 
-	if l.cfg.Logger.LoggerEncoding == "console" {
+	if l.cfg.Logger.Encoding == "console" {
 		encoder = zapcore.NewConsoleEncoder(encoderCfg)
 	} else {
 		encoder = zapcore.NewJSONEncoder(encoderCfg)

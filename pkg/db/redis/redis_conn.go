@@ -9,12 +9,12 @@ import (
 
 func NewRedis(cfg *config.Config) *redis.Client {
 	client := redis.NewClient(&redis.Options{
-		Addr:         cfg.Redis.RedisAddr,
+		Addr:         cfg.Redis.Addr,
 		MinIdleConns: cfg.Redis.MinIdleConns,
 		PoolSize:     cfg.Redis.PoolSize,
 		PoolTimeout:  time.Duration(cfg.Redis.PoolTimeout) * time.Second,
 		Password:     cfg.Redis.Password, // no password set
-		DB:           cfg.Redis.DB,       // use default DB
+		DB:           cfg.Redis.Db,       // use default DB
 	})
 
 	return client

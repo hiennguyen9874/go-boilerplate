@@ -12,11 +12,11 @@ func (etg *emailTemplatesGenerator) GenerateVerificationCodeTemplate(ctx context
 		Body: hermes.Body{
 			Name: name,
 			Intros: []string{
-				fmt.Sprintf("Welcome to %s! We're very excited to have you on board.", etg.cfg.Email.EmailName),
+				fmt.Sprintf("Welcome to %s! We're very excited to have you on board.", etg.cfg.Email.Name),
 			},
 			Actions: []hermes.Action{
 				{
-					Instructions: fmt.Sprintf("To get started with %s, please click here:", etg.cfg.Email.EmailName),
+					Instructions: fmt.Sprintf("To get started with %s, please click here:", etg.cfg.Email.Name),
 					Button: hermes.Button{
 						Color: "#22BC66", // Optional action button color
 						Text:  "Confirm your account",

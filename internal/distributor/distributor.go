@@ -14,8 +14,8 @@ type RedisTaskDistributor struct {
 
 func NewRedisClient(cfg *config.Config) *asynq.Client {
 	redisOpt := asynq.RedisClientOpt{
-		Addr: cfg.TaskRedis.TaskRedisAddr,
-		DB:   cfg.TaskRedis.TaskRedisDb,
+		Addr: cfg.TaskRedis.Addr,
+		DB:   cfg.TaskRedis.Db,
 	}
 
 	return asynq.NewClient(redisOpt)

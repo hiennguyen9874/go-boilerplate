@@ -24,11 +24,11 @@ func NewEmailTemplatesGenerator(cfg *config.Config) EmailTemplatesGenerator {
 			Theme: new(hermes.Default),
 			Product: hermes.Product{
 				// Appears in header & footer of e-mails
-				Name: cfg.Email.EmailName,
-				Link: cfg.Email.EmailLink,
+				Name: cfg.Email.Name,
+				Link: cfg.Email.Link,
 				// Optional product logo
-				Logo:      cfg.Email.EmailLogoLink,
-				Copyright: cfg.Email.EmailCopyright,
+				Logo:      cfg.Email.LogoLink,
+				Copyright: cfg.Email.Copyright,
 			},
 		},
 		cfg: cfg,

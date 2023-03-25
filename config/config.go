@@ -3,6 +3,9 @@ package config
 import (
 	"errors"
 	"log"
+	"reflect"
+	"regexp"
+	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -23,7 +26,6 @@ type Config struct {
 	TaskRedis      TaskRedisConfig
 }
 
-// Server config struct
 type ServerConfig struct {
 	AppVersion     string
 	Port           string
@@ -34,90 +36,117 @@ type ServerConfig struct {
 	MigrateOnStart bool
 }
 
-// Logger config
 type Logger struct {
-	LoggerEncoding string
-	LoggerLevel    string
+	Encoding string
+	Level    string
 }
 
-// Postgresql config
 type PostgresConfig struct {
-	PostgresqlHost     string
-	PostgresqlPort     string
-	PostgresqlUser     string
-	PostgresqlPassword string
-	PostgresqlDbname   string
-	PostgresqlSSLMode  string
+	Host     string
+	Port     string
+	User     string
+	Password string
+	Dbname   string
 }
 
-// Redis config
 type RedisConfig struct {
-	RedisAddr      string
-	RedisPassword  string
-	RedisDB        string
-	RedisDefaultdb string
-	MinIdleConns   int
-	PoolSize       int
-	PoolTimeout    int
-	Password       string
-	DB             int
+	Addr         string
+	Password     string
+	Db           int
+	MinIdleConns int
+	PoolSize     int
+	PoolTimeout  int
 }
 
-// Task redis config
 type TaskRedisConfig struct {
-	TaskRedisAddr string
-	TaskRedisDb   int
+	Addr string
+	Db   int
 }
 
-// Jwt config
 type JwtConfig struct {
-	// JwtSecretKey                string
-	JwtIssuer                     string
-	JwtAccessTokenExpireDuration  int64
-	JwtAccessTokenPrivateKey      string
-	JwtAccessTokenPublicKey       string
-	JwtRefreshTokenExpireDuration int64
-	JwtRefreshTokenPrivateKey     string
-	JwtRefreshTokenPublicKey      string
+	SecretKey                  string
+	Issuer                     string
+	AccessTokenExpireDuration  int64
+	AccessTokenPrivateKey      string
+	AccessTokenPublicKey       string
+	RefreshTokenExpireDuration int64
+	RefreshTokenPrivateKey     string
+	RefreshTokenPublicKey      string
 }
 
-// First Super User
 type FirstSuperUserConfig struct {
-	FirstSuperUserEmail    string
-	FirstSuperUserName     string
-	FirstSuperUserPassword string
+	Email    string
+	Name     string
+	Password string
 }
 
 type EmailConfig struct {
-	EmailFrom                string
-	EmailName                string
-	EmailLink                string
-	EmailLogoLink            string
-	EmailCopyright           string
-	EmailVerificationSubject string
-	EmailResetSubject        string
+	From                string
+	Name                string
+	Link                string
+	LogoLink            string
+	Copyright           string
+	VerificationSubject string
+	ResetSubject        string
 }
 
 type SmtpEmailConfig struct {
-	SmtpHost     string
-	SmtpPort     int
-	SmtpUser     string
-	SmtpPassword string
-	SmtpUseTls   bool
-	SmtpUseSsl   bool
+	Host     string
+	Port     int
+	User     string
+	Password string
+	UseTls   bool
+	UseSsl   bool
+}
+
+func ToSnakeCase(str string) string {
+	snake := regexp.MustCompile("(.)([A-Z][a-z]+)").ReplaceAllString(str, "${1}_${2}")
+	snake = regexp.MustCompile("([a-z0-9])([A-Z])").ReplaceAllString(snake, "${1}_${2}")
+	return strings.ToLower(snake)
+}
+
+func BindEnvs(vp *viper.Viper, iface interface{}, partsKey []string, partsEnvKey []string) {
+	ifv := reflect.ValueOf(iface)
+	ift := reflect.TypeOf(iface)
+	for i := 0; i < ift.NumField(); i++ {
+		v := ifv.Field(i)
+		t := ift.Field(i)
+
+		tv := strings.ToUpper(ToSnakeCase(t.Name))
+
+		switch v.Kind() {
+		case reflect.Struct:
+			BindEnvs(vp, v.Interface(), append(partsKey, t.Name), append(partsKey, tv))
+		default:
+			key := strings.ToLower(strings.Join(append(partsKey, t.Name), "."))
+			envKey := strings.ToUpper(strings.Join(append(partsEnvKey, tv), "_"))
+
+			vp.BindEnv(key, envKey)
+		}
+	}
 }
 
 // Load config file from given path
-func LoadConfig(filename string) (*viper.Viper, error) {
+func LoadConfig() (*viper.Viper, error) {
 	v := viper.New()
 
-	v.SetConfigName(filename)
 	v.AddConfigPath(".")
-	v.AutomaticEnv()
+	v.SetConfigName("config/config.default")
+	v.SetConfigType("yml")
+
+	BindEnvs(v, Config{}, []string{}, []string{})
+
 	if err := v.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			return nil, errors.New("config file not found")
 		}
+		return nil, err
+	}
+
+	var c Config
+	err := v.Unmarshal(&c)
+	if err != nil {
+		log.Printf("unable to decode into struct, %v", err)
 		return nil, err
 	}
 

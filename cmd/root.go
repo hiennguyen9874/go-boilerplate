@@ -11,9 +11,6 @@ import (
 
 // RootCmd represents the base command when called without any subcommands
 var (
-	// Used for flags.
-	cfgFile string
-
 	RootCmd = &cobra.Command{
 		Use:   "go-base",
 		Short: "A RESTful API boilerplate",
@@ -37,7 +34,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-base.yaml)")
+	// RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.go-base.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -46,16 +43,7 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	var cfgPath string
-	if cfgFile == "docker" {
-		cfgPath = "./config/config-docker"
-	} else if cfgFile == "local" || cfgFile == "" {
-		cfgPath = "./config/config-local"
-	} else {
-		cfgPath = cfgFile
-	}
-
-	cfgViper, err := config.LoadConfig(cfgPath)
+	cfgViper, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalf("LoadConfig: %v", err)
 	}

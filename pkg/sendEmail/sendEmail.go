@@ -31,7 +31,7 @@ func (es *emailSender) SendEmail(ctx context.Context, from string, to string, su
 	m.SetBody("text/html", bodyHtml)
 	m.AddAlternative("text/plain", bodyPlain)
 
-	d := gomail.NewDialer(es.cfg.SmtpEmail.SmtpHost, es.cfg.SmtpEmail.SmtpPort, es.cfg.SmtpEmail.SmtpUser, es.cfg.SmtpEmail.SmtpPassword)
+	d := gomail.NewDialer(es.cfg.SmtpEmail.Host, es.cfg.SmtpEmail.Port, es.cfg.SmtpEmail.User, es.cfg.SmtpEmail.Password)
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 
 	// Send Email

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -37,9 +38,16 @@ func NewServer(cfg *config.Config, db *gorm.DB, redisClient *redis.Client, taskR
 		return nil, err
 	}
 
+	var addr string
+	if strings.Contains(cfg.Server.Port, ":") {
+		addr = cfg.Server.Port
+	} else {
+		addr = ":" + cfg.Server.Port
+	}
+
 	return &Server{
 		server: &http.Server{
-			Addr:           cfg.Server.Port,
+			Addr:           addr,
 			Handler:        api,
 			ReadTimeout:    time.Second * time.Duration(cfg.Server.ReadTimeout),
 			WriteTimeout:   time.Second * time.Duration(cfg.Server.WriteTimeout),
