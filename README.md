@@ -60,6 +60,7 @@ In this project use 3 layer architecture
 - Linter
 - Jaeger
 - Production docker file version
+- Mock database using gomock
 
 ## Acknowledgements
 

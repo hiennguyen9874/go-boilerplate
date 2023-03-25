@@ -20,6 +20,7 @@ type Config struct {
 	Logger         Logger
 	SmtpEmail      SmtpEmailConfig
 	Email          EmailConfig
+	TaskRedis      TaskRedisConfig
 }
 
 // Server config struct
@@ -60,6 +61,12 @@ type RedisConfig struct {
 	PoolTimeout    int
 	Password       string
 	DB             int
+}
+
+// Task redis config
+type TaskRedisConfig struct {
+	TaskRedisAddr string
+	TaskRedisDb   int
 }
 
 // Jwt config

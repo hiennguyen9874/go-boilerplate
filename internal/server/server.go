@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/hibiken/asynq"
 	"github.com/hiennguyen9874/go-boilerplate/config"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/logger"
 	"github.com/redis/go-redis/v9"
@@ -28,10 +29,10 @@ type Server struct {
 }
 
 // NewServer creates and configures an APIServer serving all application routes.
-func NewServer(cfg *config.Config, db *gorm.DB, redisClient *redis.Client, logger logger.Logger) (*Server, error) {
+func NewServer(cfg *config.Config, db *gorm.DB, redisClient *redis.Client, taskRedisClient *asynq.Client, logger logger.Logger) (*Server, error) {
 	logger.Info("configuring server...")
 
-	api, err := New(db, redisClient, cfg, logger)
+	api, err := New(db, redisClient, taskRedisClient, cfg, logger)
 	if err != nil {
 		return nil, err
 	}

@@ -14,6 +14,17 @@ services:
       - db
       - redis
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "wait-for-it -w db:5432 -w redis:6379 -- sleep 10; go run main.go worker"
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+      - redis
+
   db:
     image: postgres:15.2-alpine
     environment:
@@ -33,7 +44,6 @@ services:
     volumes:
       - app-redis-data:/data
     restart: unless-stopped
-
   # redisinsight:
   #   image: redislabs/redisinsight:1.13.1
   #   ports:
@@ -72,5 +82,4 @@ services:
 volumes:
   app-postgres-data:
   app-redisinsight-data:
-  app-redis-data: 
-  # app-pgadmin-data:
+  app-redis-data: # app-pgadmin-data:

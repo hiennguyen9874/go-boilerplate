@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/hiennguyen9874/go-boilerplate/config"
+	"github.com/hiennguyen9874/go-boilerplate/internal/distributor"
 	"github.com/hiennguyen9874/go-boilerplate/internal/server"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/db/postgres"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/db/redis"
@@ -40,7 +41,9 @@ var serveCmd = &cobra.Command{
 
 		redisClient := redis.NewRedis(cfg)
 
-		server, err := server.NewServer(cfg, psqlDB, redisClient, appLogger)
+		taskRedisClient := distributor.NewRedisClient(cfg)
+
+		server, err := server.NewServer(cfg, psqlDB, redisClient, taskRedisClient, appLogger)
 		if err != nil {
 			appLogger.Fatal(err)
 		}

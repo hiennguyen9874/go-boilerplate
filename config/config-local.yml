@@ -60,3 +60,7 @@ smtpEmail:
   SmtpPassword: 9a817b2133d80c
   SmtpUseTls: true
   SmtpUseSsl: false
+
+taskRedis:
+  TaskRedisAddr: redis:6379
+  TaskRedisDb: 1
