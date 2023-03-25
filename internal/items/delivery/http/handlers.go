@@ -36,10 +36,10 @@ func CreateItemHandler(uc items.ItemUseCaseI, cfg *config.Config, logger logger.
 // @Accept json
 // @Produce json
 // @Param item body presenter.ItemCreate true "Add item"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.ItemResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /item [post]
 func (h *itemHandler) Create() func(w http.ResponseWriter, r *http.Request) {
@@ -88,12 +88,12 @@ func (h *itemHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Item Id"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.ItemResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /item/{id} [get]
 func (h *itemHandler) Get() func(w http.ResponseWriter, r *http.Request) {
@@ -135,10 +135,10 @@ func (h *itemHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param limit query int false "limit" Format(limit)
 // @Param offset query int false "offset" Format(offset)
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[[]presenter.ItemResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /item [get]
 func (h *itemHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
@@ -177,12 +177,12 @@ func (h *itemHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Item Id"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.ItemResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /item/{id} [delete]
 func (h *itemHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
@@ -230,12 +230,12 @@ func (h *itemHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "Item Id"
 // @Param item body presenter.ItemUpdate true "Update item"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.ItemResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /item/{id} [put]
 func (h *itemHandler) Update() func(w http.ResponseWriter, r *http.Request) {

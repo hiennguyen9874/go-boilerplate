@@ -36,10 +36,10 @@ func CreateUserHandler(uc users.UserUseCaseI, cfg *config.Config, logger logger.
 // @Accept json
 // @Produce json
 // @Param user body presenter.UserCreate true "Add user"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user [post]
 func (h *userHandler) Create() func(w http.ResponseWriter, r *http.Request) {
@@ -81,12 +81,12 @@ func (h *userHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param id path string true "User Id"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/{id} [get]
 func (h *userHandler) Get() func(w http.ResponseWriter, r *http.Request) {
@@ -115,10 +115,10 @@ func (h *userHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param limit query int false "limit" Format(limit)
 // @Param offset query int false "offset" Format(offset)
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[[]presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user [get]
 func (h *userHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
@@ -145,12 +145,12 @@ func (h *userHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param id path string true "User Id"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/{id} [delete]
 func (h *userHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
@@ -179,12 +179,12 @@ func (h *userHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "User Id"
 // @Param user body presenter.UserUpdate true "Update user"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/{id} [put]
 func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
@@ -232,12 +232,12 @@ func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param id path string true "User Id"
 // @Param user body presenter.UserUpdatePassword true "Update user"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/{id}/updatepass [patch]
 func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Request) {
@@ -284,12 +284,12 @@ func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Reque
 // @Tags users
 // @Accept json
 // @Produce json
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/me [get]
 func (h *userHandler) Me() func(w http.ResponseWriter, r *http.Request) {
@@ -313,12 +313,12 @@ func (h *userHandler) Me() func(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param user body presenter.UserUpdate true "Update user"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/me [put]
 func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
@@ -367,12 +367,12 @@ func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
 // @Accept json
 // @Produce json
 // @Param user body presenter.UserUpdatePassword true "Update user"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200 {object} responses.SuccessResponse[presenter.UserResponse]
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/me/updatepass [patch]
 func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Request) {
@@ -422,12 +422,12 @@ func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Req
 // @Accept json
 // @Produce json
 // @Param id path string true "User Id"
-// @Success 200 {object} responses.Response
-// @Failure 400	{object} responses.Response
-// @Failure 401	{object} responses.Response
-// @Failure 403	{object} responses.Response
-// @Failure 404	{object} responses.Response
-// @Failure 422	{object} responses.Response
+// @Success 200
+// @Failure 400	{object} responses.ErrorResponse
+// @Failure 401	{object} responses.ErrorResponse
+// @Failure 403	{object} responses.ErrorResponse
+// @Failure 404	{object} responses.ErrorResponse
+// @Failure 422	{object} responses.ErrorResponse
 // @Security OAuth2Password
 // @Router /user/{id}/logoutall [get]
 func (h *userHandler) LogoutAllAdmin() func(w http.ResponseWriter, r *http.Request) {

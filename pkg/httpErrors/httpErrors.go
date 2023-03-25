@@ -50,10 +50,10 @@ type ErrRest interface {
 // helps reveal information on the error, setting it on Err, and in the Render()
 // method, using it to set the application-specific error code in AppCode.
 type ErrResponse struct {
-	Err        error  `json:"-"`             // low-level runtime error
-	Status     int    `json:"status"`        // http response status code
-	StatusText string `json:"statusText"`    // user-level status message
-	Msg        string `json:"msg,omitempty"` // application-level error message, for debugging
+	Err        error  `json:"-"`                                      // low-level runtime error
+	Status     int    `json:"status" example:"404"`                   // http response status code
+	StatusText string `json:"statusText" example:"not_found"`         // user-level status message
+	Msg        string `json:"msg,omitempty" example:"not found user"` // application-level error message, for debugging
 }
 
 func (e *ErrResponse) GetErr() error {

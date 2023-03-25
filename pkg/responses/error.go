@@ -8,7 +8,7 @@ import (
 )
 
 // render.Renderer Render() interface method
-func (e *Response) Render(w http.ResponseWriter, r *http.Request) error {
+func (e *Response[D]) Render(w http.ResponseWriter, r *http.Request) error {
 	render.Status(r, e.Error.Status)
 	return nil
 }
@@ -16,7 +16,8 @@ func (e *Response) Render(w http.ResponseWriter, r *http.Request) error {
 func CreateErrorResponse(err error) render.Renderer {
 	parsedErr := httpErrors.ParseErrors(err)
 
-	return &Response{
+	return &Response[*string]{
+		Data: nil,
 		Error: &httpErrors.ErrResponse{
 			Err:        parsedErr.GetErr(),
 			Status:     parsedErr.GetStatus(),

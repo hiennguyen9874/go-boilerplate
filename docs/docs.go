@@ -50,13 +50,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -101,13 +101,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -142,13 +142,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -183,13 +183,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -218,13 +218,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -262,13 +262,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -316,13 +316,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -361,7 +361,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -405,25 +405,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-array_presenter_ItemResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -460,25 +460,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_ItemResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -515,37 +515,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_ItemResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -589,37 +589,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_ItemResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -654,37 +654,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_ItemResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -728,25 +728,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-array_presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -783,25 +783,25 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -829,37 +829,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -896,37 +896,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -965,37 +965,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -1032,37 +1032,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -1106,37 +1106,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -1171,37 +1171,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -1236,39 +1236,36 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/responses.Response"
-                        }
+                        "description": "OK"
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -1314,37 +1311,37 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.SuccessResponse-presenter_UserResponse"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "403": {
                         "description": "Forbidden",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     },
                     "422": {
                         "description": "Unprocessable Entity",
                         "schema": {
-                            "$ref": "#/definitions/responses.Response"
+                            "$ref": "#/definitions/responses.ErrorResponse"
                         }
                     }
                 }
@@ -1357,15 +1354,18 @@ const docTemplate = `{
             "properties": {
                 "msg": {
                     "description": "application-level error message, for debugging",
-                    "type": "string"
+                    "type": "string",
+                    "example": "not found user"
                 },
                 "status": {
                     "description": "http response status code",
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 404
                 },
                 "statusText": {
                     "description": "user-level status message",
-                    "type": "string"
+                    "type": "string",
+                    "example": "not_found"
                 }
             }
         },
@@ -1395,6 +1395,23 @@ const docTemplate = `{
                 "title": {
                     "type": "string",
                     "example": "item title"
+                }
+            }
+        },
+        "presenter.ItemResponse": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "owner_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         },
@@ -1484,6 +1501,35 @@ const docTemplate = `{
                 }
             }
         },
+        "presenter.UserResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_active": {
+                    "type": "boolean"
+                },
+                "is_superuser": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "verified": {
+                    "type": "boolean"
+                }
+            }
+        },
         "presenter.UserUpdate": {
             "type": "object",
             "properties": {
@@ -1518,15 +1564,69 @@ const docTemplate = `{
                 }
             }
         },
-        "responses.Response": {
+        "responses.ErrorResponse": {
             "type": "object",
             "properties": {
-                "data": {},
                 "error": {
                     "$ref": "#/definitions/httpErrors.ErrResponse"
                 },
                 "is_success": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "responses.SuccessResponse-array_presenter_ItemResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/presenter.ItemResponse"
+                    }
+                },
+                "is_success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "responses.SuccessResponse-array_presenter_UserResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/presenter.UserResponse"
+                    }
+                },
+                "is_success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "responses.SuccessResponse-presenter_ItemResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/presenter.ItemResponse"
+                },
+                "is_success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "responses.SuccessResponse-presenter_UserResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/presenter.UserResponse"
+                },
+                "is_success": {
+                    "type": "boolean",
+                    "example": true
                 }
             }
         }
