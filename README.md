@@ -55,7 +55,6 @@ In this project use 3 layer architecture
 ## TODO
 
 - Traefik
-- Worker like python celery
 - Config using .env
 - Linter
 - Jaeger
