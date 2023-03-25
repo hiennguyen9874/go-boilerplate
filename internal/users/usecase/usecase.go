@@ -12,6 +12,7 @@ import (
 	"github.com/hiennguyen9874/go-boilerplate/internal/models"
 	"github.com/hiennguyen9874/go-boilerplate/internal/usecase"
 	"github.com/hiennguyen9874/go-boilerplate/internal/users"
+	"github.com/hiennguyen9874/go-boilerplate/pkg/cryptpass"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/emailTemplates"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/httpErrors"
 	"github.com/hiennguyen9874/go-boilerplate/pkg/jwt"
@@ -108,7 +109,7 @@ func (u *userUseCase) Create(ctx context.Context, exp *models.User) (*models.Use
 	exp.Email = strings.ToLower(strings.TrimSpace(exp.Email))
 	exp.Password = strings.TrimSpace(exp.Password)
 
-	hashedPassword, err := jwt.HashPassword(exp.Password)
+	hashedPassword, err := cryptpass.HashPassword(exp.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -200,7 +201,7 @@ func (u *userUseCase) SignIn(ctx context.Context, email string, password string)
 		return "", "", httpErrors.ErrNotFound(err)
 	}
 
-	if !jwt.ComparePassword(password, user.Password) {
+	if !cryptpass.ComparePassword(password, user.Password) {
 		return "", "", httpErrors.ErrWrongPassword(errors.New("wrong password"))
 	}
 
@@ -264,11 +265,11 @@ func (u *userUseCase) UpdatePassword(
 		return nil, err
 	}
 
-	if !jwt.ComparePassword(oldPassword, user.Password) {
+	if !cryptpass.ComparePassword(oldPassword, user.Password) {
 		return nil, httpErrors.ErrWrongPassword(errors.New("old password and new password not same"))
 	}
 
-	hashedPassword, err := jwt.HashPassword(newPassword)
+	hashedPassword, err := cryptpass.HashPassword(newPassword)
 	if err != nil {
 		return nil, err
 	}
@@ -471,7 +472,7 @@ func (u *userUseCase) ResetPassword(
 		return err
 	}
 
-	hashedPassword, err := jwt.HashPassword(newPassword)
+	hashedPassword, err := cryptpass.HashPassword(newPassword)
 	if err != nil {
 		return err
 	}
