@@ -11,7 +11,7 @@ import (
 )
 
 type AuthClaims struct {
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 	Email string `json:"email"`
 	Id    string `json:"id"`
 }
@@ -20,12 +20,12 @@ func CreateAccessTokenHS256(id string, email string, secretKey string, expireDur
 	claims := AuthClaims{
 		Email: email,
 		Id:    id,
-		StandardClaims: jwt.StandardClaims{
-			IssuedAt:  time.Now().Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			Issuer:    issuer,
-			ExpiresAt: time.Now().Add(time.Duration(expireDuration)).Unix(),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expireDuration))),
 			Subject:   id,
-			NotBefore: time.Now().Unix(),
+			NotBefore: jwt.NewNumericDate(time.Now()),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -66,12 +66,12 @@ func CreateAccessTokenRS256(id string, email string, privateKey string, expireDu
 	claims := AuthClaims{
 		Email: email,
 		Id:    id,
-		StandardClaims: jwt.StandardClaims{
-			IssuedAt:  time.Now().Unix(),
+		RegisteredClaims: jwt.RegisteredClaims{
+			IssuedAt:  jwt.NewNumericDate(time.Now()),
 			Issuer:    issuer,
-			ExpiresAt: time.Now().Add(time.Duration(expireDuration)).Unix(),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Duration(expireDuration))),
 			Subject:   id,
-			NotBefore: time.Now().Unix(),
+			NotBefore: jwt.NewNumericDate(time.Now()),
 		},
 	}
 
