@@ -30,7 +30,7 @@ jobs:
           version: v1.51
 
           # Optional: working directory, useful for monorepos
-          working-directory: backend
+          # working-directory: backend
 
           # Optional: golangci-lint command line arguments.
           # args: --issues-exit-code=0
