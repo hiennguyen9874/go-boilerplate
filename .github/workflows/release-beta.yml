@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   commit_new_version:
-    if: contains(github.ref, 'devlop')
+    if: contains(github.ref, 'develop')
 
     permissions:
       contents: write
