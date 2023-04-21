@@ -50,19 +50,19 @@ func (h *itemHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 
 		err := json.NewDecoder(r.Body).Decode(&item)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(ctx, item)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -72,7 +72,7 @@ func (h *itemHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 			mapModel(item),
 		)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -102,24 +102,24 @@ func (h *itemHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		item, err := h.itemsUC.Get(ctx, id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		if !user.IsSuperUser && item.OwnerId != user.Id {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(err))) //nolint:errcheck
 			return
 		}
 
@@ -152,7 +152,7 @@ func (h *itemHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -163,7 +163,7 @@ func (h *itemHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 			items, err = h.itemsUC.GetMultiByOwnerId(ctx, user.Id, limit, offset)
 		}
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 		render.Respond(w, r, responses.CreateSuccessResponse(mapModelsResponse(items)))
@@ -191,30 +191,30 @@ func (h *itemHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		item, err := h.itemsUC.Get(ctx, id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		if !user.IsSuperUser && item.OwnerId != user.Id {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(err))) //nolint:errcheck
 			return
 		}
 
 		err = h.itemsUC.DeleteWithoutGet(ctx, id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -244,7 +244,7 @@ func (h *itemHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -252,30 +252,30 @@ func (h *itemHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 
 		err = json.NewDecoder(r.Body).Decode(&item)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(r.Context(), item)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		dbItem, err := h.itemsUC.Get(ctx, id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		if !user.IsSuperUser && dbItem.OwnerId != user.Id {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(err))) //nolint:errcheck
 			return
 		}
 
@@ -289,7 +289,7 @@ func (h *itemHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 
 		updatedItem, err := h.itemsUC.Update(r.Context(), id, values)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 

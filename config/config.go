@@ -121,7 +121,7 @@ func BindEnvs(vp *viper.Viper, iface interface{}, partsKey []string, partsEnvKey
 			key := strings.ToLower(strings.Join(append(partsKey, t.Name), "."))
 			envKey := strings.ToUpper(strings.Join(append(partsEnvKey, tv), "_"))
 
-			vp.BindEnv(key, envKey)
+			vp.BindEnv(key, envKey) //nolint:errcheck
 		}
 	}
 }

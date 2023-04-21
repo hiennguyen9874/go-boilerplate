@@ -86,7 +86,7 @@ func (mw *MiddlewareManager) Authenticator() func(http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			err, _ := r.Context().Value(ErrorCtxKey).(error)
 			if err != nil {
-				render.Render(w, r, responses.CreateErrorResponse(err))
+				render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 				return
 			}
 
@@ -105,19 +105,19 @@ func (mw *MiddlewareManager) CurrentUser() func(http.Handler) http.Handler {
 			err, _ := r.Context().Value(ErrorCtxKey).(error)
 
 			if err != nil || id == "" {
-				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ParseErrors(err)))
+				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ParseErrors(err))) //nolint:errcheck
 				return
 			}
 
 			idParsed, err := uuid.Parse(id)
 			if err != nil {
-				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrInvalidJWTClaims(errors.New("can not convert id to uuid from id in token"))))
+				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrInvalidJWTClaims(errors.New("can not convert id to uuid from id in token")))) //nolint:errcheck
 				return
 			}
 
 			user, err := mw.usersUC.Get(ctx, idParsed)
 			if err != nil {
-				render.Render(w, r, responses.CreateErrorResponse(err))
+				render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 				return
 			}
 
@@ -135,12 +135,12 @@ func (mw *MiddlewareManager) SuperUser() func(http.Handler) http.Handler {
 
 			user, err := GetUserFromCtx(ctx)
 			if err != nil {
-				render.Render(w, r, responses.CreateErrorResponse(err))
+				render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 				return
 			}
 
 			if !mw.usersUC.IsSuper(ctx, *user) {
-				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(errors.New("user is not super user"))))
+				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrNotEnoughPrivileges(errors.New("user is not super user")))) //nolint:errcheck
 				return
 			}
 
@@ -156,12 +156,12 @@ func (mw *MiddlewareManager) ActiveUser() func(http.Handler) http.Handler {
 
 			user, err := GetUserFromCtx(ctx)
 			if err != nil {
-				render.Render(w, r, responses.CreateErrorResponse(err))
+				render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 				return
 			}
 
 			if !mw.usersUC.IsActive(ctx, *user) {
-				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrInactiveUser(errors.New("user inactive"))))
+				render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrInactiveUser(errors.New("user inactive")))) //nolint:errcheck
 				return
 			}
 

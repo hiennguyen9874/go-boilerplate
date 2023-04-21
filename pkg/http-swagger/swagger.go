@@ -205,7 +205,7 @@ func Handler(configFns ...func(*Config)) http.HandlerFunc {
 	}
 }
 
-func getAllFilenames(efs *embed.FS) (files []string, err error) {
+func getAllFilenames(efs *embed.FS) (files []string, err error) { //nolint:unused
 	if err := fs.WalkDir(efs, ".", func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return nil

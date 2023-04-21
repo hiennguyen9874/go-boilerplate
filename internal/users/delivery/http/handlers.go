@@ -48,13 +48,13 @@ func (h *userHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 
 		err := json.NewDecoder(r.Body).Decode(&user)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(r.Context(), user)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -64,7 +64,7 @@ func (h *userHandler) Create() func(w http.ResponseWriter, r *http.Request) {
 			user.ConfirmPassword,
 		)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -93,13 +93,13 @@ func (h *userHandler) Get() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
 		user, err := h.usersUC.Get(r.Context(), id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -130,7 +130,7 @@ func (h *userHandler) GetMulti() func(w http.ResponseWriter, r *http.Request) {
 
 		users, err := h.usersUC.GetMulti(r.Context(), limit, offset)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -157,13 +157,13 @@ func (h *userHandler) Delete() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
 		user, err := h.usersUC.Delete(r.Context(), id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -191,7 +191,7 @@ func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -199,13 +199,13 @@ func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 
 		err = json.NewDecoder(r.Body).Decode(&user)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(r.Context(), user)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -216,7 +216,7 @@ func (h *userHandler) Update() func(w http.ResponseWriter, r *http.Request) {
 
 		updatedUser, err := h.usersUC.Update(r.Context(), id, values)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -244,7 +244,7 @@ func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Reque
 	return func(w http.ResponseWriter, r *http.Request) {
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -252,13 +252,13 @@ func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Reque
 
 		err = json.NewDecoder(r.Body).Decode(&user)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(r.Context(), user)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -270,7 +270,7 @@ func (h *userHandler) UpdatePassword() func(w http.ResponseWriter, r *http.Reque
 			user.ConfirmPassword,
 		)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -298,7 +298,7 @@ func (h *userHandler) Me() func(w http.ResponseWriter, r *http.Request) {
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -327,7 +327,7 @@ func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -335,13 +335,13 @@ func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
 
 		err = json.NewDecoder(r.Body).Decode(&userUpdate)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(r.Context(), userUpdate)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -352,7 +352,7 @@ func (h *userHandler) UpdateMe() func(w http.ResponseWriter, r *http.Request) {
 
 		updatedUser, err := h.usersUC.Update(r.Context(), user.Id, values)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -381,7 +381,7 @@ func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Req
 
 		user, err := middleware.GetUserFromCtx(ctx)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -389,13 +389,13 @@ func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Req
 
 		err = json.NewDecoder(r.Body).Decode(&userUpdate)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
 		err = utils.ValidateStruct(r.Context(), userUpdate)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
@@ -407,7 +407,7 @@ func (h *userHandler) UpdatePasswordMe() func(w http.ResponseWriter, r *http.Req
 			userUpdate.ConfirmPassword,
 		)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 
@@ -436,13 +436,13 @@ func (h *userHandler) LogoutAllAdmin() func(w http.ResponseWriter, r *http.Reque
 
 		id, err := uuid.Parse(chi.URLParam(r, "id"))
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err)))
+			render.Render(w, r, responses.CreateErrorResponse(httpErrors.ErrValidation(err))) //nolint:errcheck
 			return
 		}
 
 		err = h.usersUC.LogoutAll(ctx, id)
 		if err != nil {
-			render.Render(w, r, responses.CreateErrorResponse(err))
+			render.Render(w, r, responses.CreateErrorResponse(err)) //nolint:errcheck
 			return
 		}
 	}
