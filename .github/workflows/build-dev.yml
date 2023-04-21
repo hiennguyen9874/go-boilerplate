@@ -18,7 +18,7 @@ jobs:
         name: Gen new version
         run: |
           TODAY=$(TZ=":${{ env.TIMEZONE }}" date +"%Y-%m-%dT%H:%M:%SZ")
-          echo "version=dev-$TODAY" >> $GITHUB_OUTPUT
+          echo "version=$TODAY.dev" >> $GITHUB_OUTPUT
 
   commit_new_version:
     needs: gen_version
