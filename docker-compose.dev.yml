@@ -48,7 +48,6 @@ services:
     volumes:
       - app-redis-data:/data
     restart: unless-stopped
-
   # redisinsight:
   #   image: redislabs/redisinsight:1.13.1
   #   ports:
